@@ -52,6 +52,22 @@ let justCalculated = false;
 const digits = document.querySelectorAll(".digit");
 const display = document.querySelector(".display");
 const operation = document.querySelectorAll(".operation");
+const number = "0123456789";
+
+//keyboard
+document.addEventListener("keydown", (event) => {
+  const key = event.key;
+  if (number.includes(key) && currentOperator === null) {
+    num1 += key;
+    display.textContent = num1;
+  } else if (number.includes(key)) {
+    if (justCalculated || display.textContent === num1) {
+      display.textContent = "";
+    }
+    num2 += key;
+    display.textContent = num2;
+  }
+});
 
 digits.forEach((number) => {
   number.addEventListener("click", () => {
