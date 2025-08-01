@@ -46,15 +46,15 @@ function reset() {
 
 let num1 = "";
 let num2 = "";
-let currentOperator = null;
-let justCalculated = false;
+let currentOperator = null; //operator
+let justCalculated = false; //for checking if there is already a number existing (chaining of operations)
 
 const digits = document.querySelectorAll(".digit");
 const display = document.querySelector(".display");
 const operation = document.querySelectorAll(".operation");
 const number = "0123456789";
 
-//keyboard
+//keyboard support
 document.addEventListener("keydown", (event) => {
   const key = event.key;
   if (number.includes(key) && currentOperator === null) {
