@@ -54,4 +54,5 @@ button:hover{
     display: flex;
     align-items: center;
     justify-content: end;
+    overflow-x: auto;
 }
