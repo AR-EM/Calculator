@@ -1,38 +1,23 @@
 function add(a, b) {
-  if (a.toString().includes(".") || b.toString().includes(".")) {
-    let num = a + b;
-    num = num.toFixed(2);
-    return num;
-  }
-  return a + b;
+  let num = a + b;
+  return parseFloat(num.toFixed(2));
 }
 
 function subtract(a, b) {
-  if (a.toString().includes(".") || b.toString().includes(".")) {
-    let num = a - b;
-    num = num.toFixed(2);
-    return num;
-  }
-  return a - b;
+  let num = a - b;
+  return parseFloat(num.toFixed(2));
 }
 
 function multiply(a, b) {
-  if (a.toString().includes(".") || b.toString().includes(".")) {
-    let num = a * b;
-    num = num.toFixed(2);
-    return num;
-  }
-  return a * b;
+  let num = a * b;
+  return parseFloat(num.toFixed(4));
 }
 
 function divide(a, b) {
   if (b == 0) return "Nah Bro";
-  else if (a.toString().includes(".") || b.toString().includes(".")) {
-    let num = a / b;
-    num = num.toFixed(4);
-    return num;
-  }
-  return a / b;
+
+  let num = a / b;
+  return parseFloat(num.toFixed(4));
 }
 
 function operating(num1, operator, num2) {
@@ -85,7 +70,7 @@ digits.forEach((number) => {
       }
       return;
     }
-    
+
     //Adding 0. when decimal point is clicked before any number
     if (digit === "." && display.textContent === "") {
       if (currentOperator === null) {
@@ -115,6 +100,7 @@ operation.forEach((operate) => {
   operate.addEventListener("click", () => {
     if (operate.textContent == "AC") {
       reset();
+      return;
     }
     if (operate.textContent == "=") {
       const result = operating(num1, currentOperator, num2);
