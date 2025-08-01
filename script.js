@@ -20,6 +20,7 @@ function divide(a, b) {
   return parseFloat(num.toFixed(4));
 }
 
+//Operation selecting
 function operating(num1, operator, num2) {
   const n1 = parseFloat(num1);
   const n2 = parseFloat(num2);
@@ -35,6 +36,7 @@ function operating(num1, operator, num2) {
   }
 }
 
+//self explanatory
 function reset() {
   num1 = "";
   num2 = "";
@@ -45,17 +47,17 @@ function reset() {
 let num1 = "";
 let num2 = "";
 let currentOperator = null;
+let justCalculated = false;
 
 const digits = document.querySelectorAll(".digit");
 const display = document.querySelector(".display");
 const operation = document.querySelectorAll(".operation");
 
-display.textContent = "";
-
 digits.forEach((number) => {
   number.addEventListener("click", () => {
     const digit = number.textContent;
 
+    //Backspacing
     if (digit === "⌫") {
       if (currentOperator === null) {
         if (num1.length > 0) {
@@ -82,13 +84,20 @@ digits.forEach((number) => {
       }
       return;
     }
+
+    //Preventing multiple decimal points
     if (digit === "." && display.textContent.includes(".")) {
       return;
     }
+
+    //Making the numbers
     if (currentOperator === null) {
       num1 += digit;
       display.textContent = num1;
     } else {
+      if (justCalculated || display.textContent === num1) {
+        display.textContent = "";
+      }
       num2 += digit;
       display.textContent = num2;
     }
@@ -98,25 +107,32 @@ digits.forEach((number) => {
 operation.forEach((operate) => {
   const opText = operate.textContent;
   operate.addEventListener("click", () => {
-    if (operate.textContent == "AC") {
+    //All Clear button
+    if (opText == "AC") {
       reset();
       return;
     }
-    if (operate.textContent == "=") {
+
+    //Equal button
+    if (opText == "=") {
       const result = operating(num1, currentOperator, num2);
       display.textContent = result;
       num1 = result.toString();
       num2 = "";
       currentOperator = null;
+      justCalculated = true;
+      return;
     }
+
+    //Operation calling
     if (currentOperator && num1 && num2) {
-      const result = operate(num1, currentOperator, num2);
+      const result = operating(num1, currentOperator, num2);
       display.textContent = result;
       num1 = result.toString();
       num2 = "";
-      currentOperator = null;
     }
     currentOperator = opText;
+    justCalculated = true;
   });
 });
 
